@@ -1,0 +1,53 @@
+/* Container for both front and back sides of the card */
+.card {
+  width: 200px;
+  height: 300px;
+  perspective: 1000px; /* Enable 3D space */
+  cursor: pointer; /* Indicate that the card is clickable */
+  background-color: transparent; /* Ensure the background is transparent */
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s ease-in-out; /* Smooth animation */
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+
+
+/* When the card is flipped */
+.card-inner.flipped {
+  transform: rotateY(180deg); /* Flip the front side to the back */
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+/* Styling for the front of the card */
+.card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+/* Styling for the back of the card */
+.card-back {
+  background-color: #333;
+  color: white;
+  transform: rotateY(180deg); /* Initially hidden with a 180-degree rotation */
+}
