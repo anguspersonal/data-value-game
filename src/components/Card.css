@@ -1,7 +1,9 @@
 /* Container for both front and back sides of the card */
 .card {
-  width: 200px;
-  height: 300px;
+  width: 100%;
+  max-width: 400px;
+  min-width: 200px;
+  height: calc(1.5 * var(--card-width)); /* Maintain a 1.5 aspect ratio */
   perspective: 1000px; /* Enable 3D space */
   cursor: pointer; /* Indicate that the card is clickable */
   background-color: transparent; /* Ensure the background is transparent */

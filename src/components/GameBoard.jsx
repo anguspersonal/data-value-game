@@ -1,24 +1,38 @@
+//Imports
 import React, { useState, useEffect, useDebugValue } from 'react';
 import './GameBoard.css'; // Ensure the correct path to the CSS file
 import industries from './industries.json'; // Import industries from the JSON file
 
-const generateHearts = (lives) => {
-  return Array.from({ length: lives }).map((_, index) => (
-    <span key={index} className="heart">❤️</span>
-  ));
-};
-
+//UseLabelState hook to add labels to state values
 const useLabeledState = (initialState, label) => {
   const [state, setState] = useState(initialState);
   useDebugValue(`${label}: ${state}`);
   return [state, setState];
 };
 
-// Shuffle industries and select 9 for the card grid
-const shuffledIndustries = industries.sort(() => 0.5 - Math.random()).slice(0, 9).map(industry => ({
-  ...industry,
-  state: 'Unselected' // Add initial state to each industry
-}));
+// Shuffle the deck and set the initial industry card
+const shuffleDeck = () => {
+  const shuffledDeck = industries.sort(() => 0.5 - Math.random()).map((industry) => ({
+    ...industry,
+    state: 'Unflipped'
+  }));
+
+  // Log length of deck
+  console.log('Deck Length:', shuffledDeck.length);
+
+  // Select the initial industry card and remove it from the deck
+  const startingIndustry = shuffledDeck[Math.floor(Math.random() * shuffledDeck.length)];
+  const filteredDeck = shuffledDeck.filter(industry => industry.id !== startingIndustry.id);
+
+  // Log starting industry and deck
+  console.log('Starting Industry:', startingIndustry);
+  console.log('Filtered Deck Length:', filteredDeck.length);
+
+  return {
+    deck: filteredDeck,
+    startingIndustry: startingIndustry,
+  };
+};
 
 const GameBoard = () => {
   const [lives, setLives] = useLabeledState(3, 'Lives'); // Set initial lives to 3
@@ -27,17 +41,27 @@ const GameBoard = () => {
   const [gameStatus, setGameStatus] = useLabeledState('playing', 'Game Status'); // 'playing', 'won', 'lost'
   const [guess, setGuess] = useLabeledState(null, 'Guess'); // 'higher' or 'lower'
   const [score, setScore] = useLabeledState(0, 'Score'); // Track the score
-  const [cards, setCards] = useLabeledState(shuffledIndustries, 'Cards'); // Combine industry data and card state
+  const [cards, setCards] = useLabeledState([], 'Cards'); // Combine industry data and card state
   const [selectedCard, setSelectedCard] = useState(null); // Track the selected card by index
+  const [roundCounter, setRoundCounter] = useState(0); // Track the number of rounds played
 
-  // Set the initial starting and previous industry when the component mounts
+  // Function to restart the game
+  const restartGame = () => {
+    const { deck, startingIndustry } = shuffleDeck();
+    setLives(3);
+    setStartingIndustry(startingIndustry);
+    setPreviousIndustry(startingIndustry);
+    setGameStatus('playing');
+    setGuess(null);
+    setScore(0);
+    setCards(deck);
+    setSelectedCard(null);
+    setRoundCounter(0);
+    console.log('Game restarted');
+  };
+
   useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * cards.length);
-    const initialIndustry = cards[randomIndex];
-    setStartingIndustry(initialIndustry);
-    setPreviousIndustry(initialIndustry);
-    setCards(prevCards => prevCards.filter(card => card.id !== initialIndustry.id)); // Remove the starting industry card
-    console.log('Starting Industry:', initialIndustry); // Add console log
+    restartGame();
   }, []); // Empty dependency array ensures this runs only once
 
   const updateCardState = (index, newState) => {
@@ -56,8 +80,8 @@ const GameBoard = () => {
 
     if (roundCounter === 0) {
       isCorrect = selectedGuess === 'higher'
-        ? selectedIndustry.dataValue > initialIndustry.dataValue
-        : selectedIndustry.dataValue < initialIndustry.dataValue;
+        ? selectedIndustry.dataValue > startingIndustry.dataValue
+        : selectedIndustry.dataValue < startingIndustry.dataValue;
     } else {
       isCorrect = selectedGuess === 'higher'
         ? selectedIndustry.dataValue > previousIndustry.dataValue
@@ -77,12 +101,15 @@ const GameBoard = () => {
       console.log('Correct Guess! New Previous Industry:', selectedIndustry); // Add console log
     } else {
       setLives(lives - 1); // Decrement lives
+      setPreviousIndustry(selectedIndustry); // Set selected industry as previous industry
+      setGuess(null); // Reset guess
       if (lives - 1 === 0) {
         setGameStatus('lost'); // Set game status to lost if no lives left
         console.error('Game Over! No lives left.'); // Add console error
       }
     }
 
+    setRoundCounter(roundCounter + 1); // Increment round counter
     setSelectedCard(null); // Reset selected card
   };
 
@@ -91,11 +118,10 @@ const GameBoard = () => {
 
     setSelectedCard(index);
     updateCardState(index, 'Selected');
-    console.log('Card Selected:', cards[index]); // Add console log
   };
 
   const Card = ({ industry, onClick }) => (
-    <div className='card' key={industry.id} onClick={onClick}>
+    <div className='card' onClick={onClick}>
       <div className={`card-inner ${industry.state === 'Selected' ? 'selected' : ''} ${industry.state === 'Flipping' ? 'flipping' : ''} ${industry.state === 'Flipped' ? 'flipped' : ''}`}>
         <div className="card-front">
           <p>{industry.name}</p>
@@ -113,39 +139,103 @@ const GameBoard = () => {
   }
 
   if (gameStatus === 'lost') {
-    return <div className="lose-screen">You Lose!</div>;
+    return (
+      <div className="lose-screen">
+        <p>You Lose, Unlucky!</p>
+        <p>Final Score: {score}</p>
+        <p>Final Round: {roundCounter}</p>
+
+        {/* QR Code Image */}
+        <div className="qr-code">
+          <p>Scan the QR code to play again!</p>
+          <img className="qr-code-img" src="/QR_code.png" alt="QR Code" />
+        </div>
+        <div className="restart">
+          <button onClick={restartGame}>Restart</button>
+        </div>
+      </div>
+    );
   }
 
   return (
     <div className="game-board">
-      <div className="lives">
-        {generateHearts(lives)}
+      <div className='instructions'>
+        <h3> Discover the Value of Data with Anmut</h3>
+        <p>At Anmut, we believe many organisations miss the true value of their data because they don’t see it as a strategic asset. Our proprietary methodology values data not for selling, but for the value it drives within organisations.</p>
+        <p>In this game, we've valued the data of FTSE 350 companies by sector.</p>
+        <p>You start with {startingIndustry?.name}, valued at £{startingIndustry?.dataValue}bn.
+          Select another industry and guess if its data value is higher or lower. The previous industry will update after each selection. 
+          Keep going as long as you can! Best of luck!
+        </p>
       </div>
 
-      <div className="starting-industry">
-        <p>Starting Industry: {startingIndustry?.name} (£{startingIndustry?.dataValue}bn)</p>
+      <div className="game-controls">
+        <div className="game-info">
+            {/* Lives */}
+            <div className="game-info-item">
+              <div className="label"><p>Lives:</p></ div>
+              <div className="value-box">
+                {Array.from({ length: lives }).map((_, index) => (
+                  <span key={index} className="heart">❤️</span>
+                ))}
+              </div>
+            </div>
+              
+            {/* Score */}
+            <div className="game-info-item">
+              <div className="label"><p>Score:</p></ div>
+              <div className="value-box">
+                  <p>{score}</p>
+                </div>
+            </div>
+
+            {/* Round Counter */}
+            <div className="game-info-item">
+              <div className="label"><p>Round:</p></ div>
+              <div className="value-box">
+                <p>{roundCounter}</p>
+              </div>
+            </div>
+
+            {/* Starting Industry */}
+            <div className="game-info-item" id="starting-industry">
+              <div className="label"><p>Starting Industry:</p></ div>
+              <div className="value-box">
+                <p>{startingIndustry?.name} (£{startingIndustry?.dataValue}bn)</p>
+              </div>
+            </div>
+
+            {/* Previous Industry */}
+            {previousIndustry?.name !== startingIndustry?.name && (
+              <div className="game-info-item" id="previous-industry">
+                <div className="label"><p>Previous Industry:</p></ div>
+                <div className="value-box">
+                  
+                    <p>{previousIndustry?.name} (£{previousIndustry?.dataValue}bn)</p>
+                </div>
+              </div>
+            )}
+        </div>
+        <div className='buttons'>    
+          <button id="Lower-Button" onClick={() => handleGuess('lower')} disabled={selectedCard === null}>Lower</button>
+          <button id="Higher-Button" onClick={() => handleGuess('higher')} disabled={selectedCard === null}>Higher</button>
+        </div>   
       </div>
 
-      <div className="previous-industry">
-        {previousIndustry?.name !== startingIndustry?.name && (
-          <p>Previous Industry: {previousIndustry?.name} (£{previousIndustry?.dataValue}bn)</p>
-        )}
-      </div>
-
-      <div className="controls">
-        <button onClick={() => handleGuess('higher')} disabled={selectedCard === null}>Higher</button>
-        <button onClick={() => handleGuess('lower')} disabled={selectedCard === null}>Lower</button>
-      </div>
-
-      {/* Card Grid */}
+      {/* Cards Grid */}
       <div className="cards-grid">
         {cards.map((industry, index) => (
           <Card 
             key={index} 
-            industry={industry}
+            industry={industry} 
             onClick={() => handleCardSelection(index)} 
           />
         ))}
+      </div>
+
+      {/* Restart Button */}
+      <div className="restart">
+        <button onClick={restartGame}>Restart</button>
       </div>
     </div>
   );

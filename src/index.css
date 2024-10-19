@@ -1,17 +1,59 @@
+
 :root {
+  --e-global-color-primary: #FFFFFF;
+  --e-global-color-secondary: #000000;
+  --e-global-color-text: #EBEBEB;
+  --e-global-color-accent: #1D2530;
+  --e-global-color-24622ed: #242424;
+  --e-global-color-ceadcb9: #BD1972;
+  --e-global-color-fc53926: #D7347F;
+  --e-global-color-551fe9e: #E7519C;
+  --e-global-color-8fc5124: #8028C2;
+  --e-global-color-cf6a9cb: #9D4BDA;
+  --e-global-color-94182d8: #BA70E7;
+  --e-global-color-815c770: #233E91;
+  --e-global-color-afbc983: #2B5AB7;
+  --e-global-color-a5f3c28: #528AF8;
+  --e-global-color-background1: #FAFAFF; 
+  --e-global-color-c09952e: #E0006D;
+  --e-global-color-3e147b0: #E74B94;
+  --e-global-color-54484f5: #9F0A5D;
+  --e-global-color-0a996ac: #081A36;
+  --e-global-color-65f8ea7: #223F91;
+  --e-global-color-1d3426e: #548DFB;
+  --e-global-color-384471c: #CC0063;
+  --e-global-color-grey: #f4e7ff21;
+  --e-global-color-lightgrey: #FAFAFF00;
+  --e-global-typography-primary-font-family: "Georgia";
+  --e-global-typography-primary-font-weight: 600;
+  --e-global-typography-secondary-font-family: "Georgia";
+  --e-global-typography-secondary-font-weight: 400;
+  --e-global-typography-text-font-family: "Trebuchet MS";
+  --e-global-typography-text-font-weight: 400;
+  --e-global-typography-accent-font-family: "Trebuchet MS";
+  --e-global-typography-accent-font-weight: 500;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background-color: var(--e-global-color-0a996ac);
+  color: var(--e-global-color-text);
+  --header-height: 60px; 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  max-width: 1280px;
+  margin: 0 auto;
+  margin-top: var(--header-height);
+  padding: 2rem;
+  text-align: center;
+
 }
+
+#root {
+
+}
+
 
 a {
   font-weight: 500;
@@ -33,19 +75,17 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  display: flex;
+  align-items: center;
+  justify-content: left
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
@@ -54,19 +94,7 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
-
-.lives {
-  margin: 20px;
+p {
+  font-size: 1em;
+  line-height: 1;
 }

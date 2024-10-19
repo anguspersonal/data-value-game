@@ -1,0 +1,16 @@
+.footer {
+  padding: 20px;
+  text-align: left;
+  position: fixed; /* Make the footer fixed at the bottom */
+  bottom: 0; /* Align it to the bottom edge */
+  left: 0; /* Align it to the left edge */
+  width: 100%; /* Make it span the full width of the screen */
+  height: 100px; /* Set a fixed height */
+  margin: 0; /* Remove any default margin */
+  z-index: 2000; /* Ensure it stays on top of other elements */
+  border-top: 1px solid var(--e-global-color-grey); /* Changed to border-top */
+  background-color: var(--e-global-color-0a996ac);
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: left; /* Align items horizontally */
+}

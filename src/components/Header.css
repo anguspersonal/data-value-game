@@ -1,0 +1,25 @@
+/* Header.css */
+
+.header {
+    padding: 20px;
+    text-align: left;
+    position: fixed; /* Make the header fixed at the top */
+    top: 0; /* Align it to the top edge */
+    left: 0; /* Align it to the left edge */
+    width: 100%; /* Make it span the full width of the screen */
+    
+    height: var(--header-height); 
+    margin: 0; /* Remove any default margin */
+    z-index: 1000; /* Ensure it stays on top of other elements */
+    border-bottom: 1px solid var(--e-global-color-grey);
+    background-color: var(--e-global-color-0a996ac);
+    display: flex;
+    align-content: center;
+    justify-content: left
+  }
+  
+  .title {
+    color: white;
+    font-size: 2em;
+    margin: 0; /* Remove any default margin */
+  }
