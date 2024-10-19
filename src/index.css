@@ -37,7 +37,7 @@
   font-weight: 400;
   background-color: var(--e-global-color-0a996ac);
   color: var(--e-global-color-text);
-  --header-height: 60px; 
+  --header-height: 15px; 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

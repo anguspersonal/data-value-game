@@ -2,6 +2,9 @@
 import React, { useState, useEffect, useDebugValue } from 'react';
 import './GameBoard.css'; // Ensure the correct path to the CSS file
 import industries from './industries.json'; // Import industries from the JSON file
+import Win from './Win.jsx'; // Import the Win component
+import Lose from './Lose.jsx'; // Import the Lose component
+import CTAGuessAutomotive from './CTA-GuessAutomotive.jsx'; // Import the CTAGuessAutomotive component
 
 //UseLabelState hook to add labels to state values
 const useLabeledState = (initialState, label) => {
@@ -42,8 +45,8 @@ const GameBoard = () => {
   const [guess, setGuess] = useLabeledState(null, 'Guess'); // 'higher' or 'lower'
   const [score, setScore] = useLabeledState(0, 'Score'); // Track the score
   const [cards, setCards] = useLabeledState([], 'Cards'); // Combine industry data and card state
-  const [selectedCard, setSelectedCard] = useState(null); // Track the selected card by index
-  const [roundCounter, setRoundCounter] = useState(0); // Track the number of rounds played
+  const [selectedCard, setSelectedCard] = useLabeledState(null,'Selected Industry'); // Track the selected card by index
+  const [roundCounter, setRoundCounter] = useLabeledState(0,'Round'); // Track the number of rounds played
 
   // Function to restart the game
   const restartGame = () => {
@@ -99,6 +102,10 @@ const GameBoard = () => {
       setPreviousIndustry(selectedIndustry); // Set selected industry as previous industry
       setGuess(null); // Reset guess
       console.log('Correct Guess! New Previous Industry:', selectedIndustry); // Add console log
+      if (roundCounter + 1 >= 9) {
+        setGameStatus('won'); // Set game status to won if score reaches 9
+        console.log('Congratulations! You have won the game!'); // Add console log
+      }
     } else {
       setLives(lives - 1); // Decrement lives
       setPreviousIndustry(selectedIndustry); // Set selected industry as previous industry
@@ -135,21 +142,19 @@ const GameBoard = () => {
   );
 
   if (gameStatus === 'won') {
-    return <div className="win-screen">You Win!</div>;
+    return (
+      <div className="win-screen">
+      <Win score={score} livesRemaining={lives} round={roundCounter} />
+      <CTAGuessAutomotive />
+      </div>
+    );
   }
 
   if (gameStatus === 'lost') {
     return (
       <div className="lose-screen">
-        <p>You Lose, Unlucky!</p>
-        <p>Final Score: {score}</p>
-        <p>Final Round: {roundCounter}</p>
-
-        {/* QR Code Image */}
-        <div className="qr-code">
-          <p>Scan the QR code to play again!</p>
-          <img className="qr-code-img" src="/QR_code.png" alt="QR Code" />
-        </div>
+        <Lose score={score} livesRemaining={lives} round={roundCounter} />
+        <CTAGuessAutomotive />
         <div className="restart">
           <button onClick={restartGame}>Restart</button>
         </div>

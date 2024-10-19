@@ -138,8 +138,9 @@
 /*Styling for the cards*/
 
 .card {
-  width: 200px;
-  height: 300px;
+  --card-width: 200px;
+  width: var(--card-width);
+  height: calc(0.5*var(--card-width));
   perspective: 1000px; /* Enable 3D space */
   cursor: pointer; /* Indicate that the card is clickable */
   background-color: transparent; /* Ensure the background is transparent */
