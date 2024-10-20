@@ -130,7 +130,7 @@ const GameBoard = (props) => {
   const Card = ({ industry, onClick }) => (
     <div className='card' onClick={onClick}>
       <div className={`card-inner ${industry.state === 'Selected' ? 'selected' : ''} ${industry.state === 'Flipping' ? 'flipping' : ''} ${industry.state === 'Flipped' ? 'flipped' : ''}`}>
-        <div className="card-front">
+        <div className={`card-front ${industry.state === 'Selected' ? 'selected' : ''}`}>
           <p>{industry.name}</p>
         </div>
         <div className="card-back">

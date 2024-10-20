@@ -8,12 +8,6 @@
   z-index: 2; /* Ensure the game board is above the background */
 }
 
-.instructions {
-  font-style: bold; /* Italicize the text */
-  font-weight: bold; /* Bold the text */
-  margin-top: 20px; /* Add margin for better spacing */
-}
-
 .game-controls {
   min-width: 700px; /* Set a minimum width for the controls */
   max-width: 800px; /* Limit the maximum width of the controls */
@@ -160,6 +154,11 @@
 
 .card-inner.selected {
   background-color: blue;
+}
+
+.card-front.selected {
+  background-color: var(--e-global-color-8fc5124);
+  color: white;
 }
 
 /* Keyframes for flip animation */
