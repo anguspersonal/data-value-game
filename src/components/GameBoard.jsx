@@ -1,7 +1,7 @@
 //Imports
 import React, { useState, useEffect, useDebugValue } from 'react';
 import './GameBoard.css'; // Ensure the correct path to the CSS file
-import industries from './industries.json'; // Import industries from the JSON file
+import industries from './Industries.json'; // Import industries from the JSON file
 import Win from './Win.jsx'; // Import the Win component
 import Lose from './Lose.jsx'; // Import the Lose component
 import CTAGuessAutomotive from './CTA-GuessAutomotive.jsx'; // Import the CTAGuessAutomotive component
