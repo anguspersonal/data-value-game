@@ -5,10 +5,12 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  z-index: 2; /* Ensure the game board is above the background */
 }
 
 .instructions {
-  font-style: italic; /* Italicize the text */
+  font-style: bold; /* Italicize the text */
+  font-weight: bold; /* Bold the text */
   margin-top: 20px; /* Add margin for better spacing */
 }
 

@@ -37,11 +37,11 @@ const shuffleDeck = () => {
   };
 };
 
-const GameBoard = () => {
+const GameBoard = (props) => {
   const [lives, setLives] = useLabeledState(3, 'Lives'); // Set initial lives to 3
   const [startingIndustry, setStartingIndustry] = useLabeledState(null, 'Starting Industry'); // Set the starting industry
   const [previousIndustry, setPreviousIndustry] = useLabeledState(null, 'Previous Industry'); // Set the previous industry
-  const [gameStatus, setGameStatus] = useLabeledState('playing', 'Game Status'); // 'playing', 'won', 'lost'
+  const [gameStatus, setGameStatus] = useLabeledState(props.gameStatus, 'Game Status'); // 'true' or 'false'
   const [guess, setGuess] = useLabeledState(null, 'Guess'); // 'higher' or 'lower'
   const [score, setScore] = useLabeledState(0, 'Score'); // Track the score
   const [cards, setCards] = useLabeledState([], 'Cards'); // Combine industry data and card state
@@ -164,15 +164,6 @@ const GameBoard = () => {
 
   return (
     <div className="game-board">
-      <div className='instructions'>
-        <h3> Discover the Value of Data with Anmut</h3>
-        <p>At Anmut, we believe many organisations miss the true value of their data because they don’t see it as a strategic asset. Our proprietary methodology values data not for selling, but for the value it drives within organisations.</p>
-        <p>In this game, we've valued the data of FTSE 350 companies by sector.</p>
-        <p>You start with {startingIndustry?.name}, valued at £{startingIndustry?.dataValue}bn.
-          Select another industry and guess if its data value is higher or lower. The previous industry will update after each selection. 
-          Keep going as long as you can! Best of luck!
-        </p>
-      </div>
 
       <div className="game-controls">
         <div className="game-info">

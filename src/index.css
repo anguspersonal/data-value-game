@@ -47,6 +47,9 @@
   margin-top: var(--header-height);
   padding: 2rem;
   text-align: center;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center;
 }
 
 
@@ -60,8 +63,9 @@ a:hover {
 }
 
 body {
-  margin: 0;
+  margin: 20px;
   display: flex;
+  flex-direction: column;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
@@ -92,4 +96,23 @@ button:focus-visible {
 p {
   font-size: 1em;
   line-height: 1;
+}
+
+#planet {
+    position: absolute;
+    top: 0px;  /* Adjust this to control how far from the top the image appears */
+    left: 100%;
+    transform: translateX(-50%); /* Center the image horizontally */
+    width: 250px; /* Adjust the width as needed */
+    height: auto; /* Maintains aspect ratio */
+    z-index: 1; 
+}
+
+.instructions {
+  font-style: bold; /* Italicize the text */
+  font-weight: bold; /* Bold the text */
+  font-size: 1.2em; /* Adjust the font size as needed */
+  line-height: normal;
+  align-content: center;
+  margin-top: 20px; /* Add margin for better spacing */
 }
