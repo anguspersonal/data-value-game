@@ -17,7 +17,7 @@ const useLabeledState = (initialState, label) => {
 const shuffleDeck = () => {
   const shuffledDeck = industries.sort(() => 0.5 - Math.random()).map((industry) => ({
     ...industry,
-    state: 'Unflipped'
+    state: 'Unselected'
   }));
 
   // Log length of deck
@@ -38,6 +38,8 @@ const shuffleDeck = () => {
 };
 
 const GameBoard = (props) => {
+
+  // State variables
   const [lives, setLives] = useLabeledState(3, 'Lives'); // Set initial lives to 3
   const [startingIndustry, setStartingIndustry] = useLabeledState(null, 'Starting Industry'); // Set the starting industry
   const [previousIndustry, setPreviousIndustry] = useLabeledState(null, 'Previous Industry'); // Set the previous industry
@@ -63,17 +65,28 @@ const GameBoard = (props) => {
     console.log('Game restarted');
   };
 
+  // UseEffect hook to restart the game when the component mounts
   useEffect(() => {
     restartGame();
   }, []); // Empty dependency array ensures this runs only once
 
+  // Function to update the card state
   const updateCardState = (index, newState) => {
     setCards(prevCards => prevCards.map((card, i) => ({
       ...card,
-      state: i === index ? newState : card.state
+      state: i === index ? newState : "Unselected"
     })));
   };
 
+  // Function to handle card selection
+  const handleCardSelection = (index) => {
+    if (gameStatus !== 'playing' || cards[index].state === 'Flipped' || cards[index].state === 'Flipping') return; // Only apply if card is not flipped or flipping
+
+    setSelectedCard(index);
+    updateCardState(index, 'Selected');
+  };
+
+  // Function to handle the user's guess
   const handleGuess = (selectedGuess) => {
     if (gameStatus !== 'playing' || selectedCard === null) return;
     setGuess(selectedGuess);
@@ -119,14 +132,8 @@ const GameBoard = (props) => {
     setRoundCounter(roundCounter + 1); // Increment round counter
     setSelectedCard(null); // Reset selected card
   };
-
-  const handleCardSelection = (index) => {
-    if (gameStatus !== 'playing' || cards[index].state === 'Flipped' || cards[index].state === 'Flipping') return; // Only apply if card is not flipped or flipping
-
-    setSelectedCard(index);
-    updateCardState(index, 'Selected');
-  };
-
+  
+  // Card component
   const Card = ({ industry, onClick }) => (
     <div className='card' onClick={onClick}>
       <div className={`card-inner ${industry.state === 'Selected' ? 'selected' : ''} ${industry.state === 'Flipping' ? 'flipping' : ''} ${industry.state === 'Flipped' ? 'flipped' : ''}`}>
@@ -141,6 +148,7 @@ const GameBoard = (props) => {
     </div>
   );
 
+  // Win Status
   if (gameStatus === 'won') {
     return (
       <div className="win-screen">
@@ -150,6 +158,7 @@ const GameBoard = (props) => {
     );
   }
 
+  // Lose Status
   if (gameStatus === 'lost') {
     return (
       <div className="lose-screen">
@@ -162,6 +171,8 @@ const GameBoard = (props) => {
     );
   }
 
+
+  // Game Board
   return (
     <div className="game-board">
 
