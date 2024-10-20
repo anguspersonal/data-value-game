@@ -74,7 +74,7 @@ const GameBoard = (props) => {
   const updateCardState = (index, newState) => {
     setCards(prevCards => prevCards.map((card, i) => ({
       ...card,
-      state: i === index ? newState : "Unselected"
+      state: i === index ? newState : ((card.state !== 'Flipped' && card.state !== 'Flipping') ? 'Unselected' : card.state)
     })));
   };
 

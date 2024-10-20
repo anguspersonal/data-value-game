@@ -10,7 +10,6 @@
 
 .game-controls {
   min-width: 700px; /* Set a minimum width for the controls */
-  max-width: 800px; /* Limit the maximum width of the controls */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -199,7 +198,7 @@
 /* Styling for the front of the card */
 .card-front {
   color: black;
-  background: lightgrey; /* Distinct background color for the front */
+  background: whitesmoke; /* Distinct background color for the front */
 }
 
 /* Styling for the back of the card */
