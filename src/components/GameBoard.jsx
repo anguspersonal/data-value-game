@@ -223,9 +223,9 @@ const GameBoard = (props) => {
               </div>
             )}
         </div>
-        <div className='buttons'>    
-          <button id="Lower-Button" onClick={() => handleGuess('lower')} disabled={selectedCard === null}>Lower</button>
-          <button id="Higher-Button" onClick={() => handleGuess('higher')} disabled={selectedCard === null}>Higher</button>
+        <div className='buttons'> 
+            <button id="Lower-Button" onClick={() => handleGuess('lower')} disabled={selectedCard === null}>Lower</button>
+            <button id="Higher-Button" onClick={() => handleGuess('higher')} disabled={selectedCard === null}>Higher</button>
         </div>   
       </div>
 

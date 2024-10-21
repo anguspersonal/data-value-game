@@ -9,13 +9,13 @@
 }
 
 .game-controls {
-  min-width: 700px; /* Set a minimum width for the controls */
+  /* min-width: 700px; Set a minimum width for the controls */
+  max-width: 600px; /* Limit the maximum width of the controls */
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  justify-content: left;
-  align-items: center;
+  justify-content: space-between;
   padding: 10px;
   border: 2px solid #ccc; /* Border color */
   border-radius: 10px; /* Rounded edges */
@@ -26,7 +26,7 @@
 
 .game-controls .game-info {
   display: flex;
-  width: 100%;
+  /* width: 100%; */
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
@@ -58,7 +58,7 @@
   justify-content: center;
   min-height: 1em;
   max-height: 2em;
-  min-width: 50px;
+  /* min-width: 50px; */
   padding: 10px;
   border: 2px solid #ddd; /* Border color */
   border-radius: 10px; /* Rounded edges */
@@ -70,11 +70,11 @@
 }
 
 #starting-industry {
-  min-width: 250px;
+  /* min-width: 250px; */
 }
 
 #previous-industry {
-  min-width: 250px;
+  /* min-width: 250px; */
 }
 
 .heart {
@@ -83,18 +83,20 @@
 }
 
 .game-controls .buttons {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-around;
+  gap: 40px;
   align-items: center;
   padding: 10px 20px; /* Example style */
 }
 
 .game-controls .buttons button {
+  width: 100%; /* Example style */
   min-width: 200px;
   min-height: 50px;
-  max-width: 400px;
+  /* max-width: 400px; */
   max-height: 100px;
   padding: 10px 20px; /* Example style */
   border-radius: 5px; /* Example style */
@@ -125,7 +127,7 @@
   gap: 10px; /* Adds spacing between the cards */
   justify-content: center; /* Center the grid in the GameBoard */
   margin-top: 20px; /* Add margin for better spacing */
-  max-width: 640px; /* Limit the maximum width of the grid */
+  /* max-width: 640px; Limit the maximum width of the grid */
   margin-left: auto; /* Center the grid horizontally */
   margin-right: auto; /* Center the grid horizontally */
 }
@@ -224,7 +226,7 @@
 }
 
 .qr-code-img {
-  width: 150px; /* Set the width of the QR code image */
+  width: 200px; /* Set the width of the QR code image */
   height: auto; /* Maintain the aspect ratio */
   border: 2px solid #000; /* Add a border around the QR code */
   border-radius: 10px; /* Add rounded corners */
