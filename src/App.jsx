@@ -4,6 +4,23 @@ import GameBoard from './components/GameBoard.jsx'
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx';
 import Welcome from './components/Welcome.jsx';
+//Set up routing
+/*import { useNavigate } from 'react-router-dom';
+
+const StartScreen = () => {
+  const navigate = useNavigate();
+
+  const startGame = () => {
+    navigate('/game');
+  };
+
+  return (
+    <div>
+      <h1>Start Screen</h1>
+      <button onClick={startGame}>Start Game</button>
+    </div>
+  );
+};*/
 
 //UseLabelState hook to add labels to state values
 const useLabeledState = (initialState, label) => {

@@ -172,12 +172,51 @@ const GameBoard = (props) => {
   }
 
 
+  /* Gameboard updates
+  1. 
+  2. Add explanatory text, move scores to rop right
+  3. Add a industry vs industry at bottom of screen.
+  4. buttons go below card-grid
+  */
+
   // Game Board
   return (
     <div className="game-board">
-
+      <div className="instructions" > 
+        <p style={{ fontWeight: 'bold' }}>Instructions: </p>
+        <ul>
+          <li>Select a card and predict it's value will be higher or lower than the starting industry</li>
+          <li>If you guess correctly, you will earn a point.</li>
+          <li>If you guess incorrectly, you will lose a life.</li>
+          <li>In the next round: choose another card and predict if it's value will be higher or lower than the previous industry.</li>
+          <li>The game ends when you have no lives left or you reach 9 points.</li>
+        </ul>
+      </div>
       <div className="game-controls">
+        
+        
+        
         <div className="game-info">
+            {/* Starting Industry */}
+            {roundCounter === 0 && (
+              <div className="game-info-item" id="starting-industry">
+                <div className="label"><p>Starting Industry:</p></ div>
+                <div className="value-box">
+                  <p>{startingIndustry?.name} (£{startingIndustry?.dataValue}bn)</p>
+                </div>
+              </div>
+            )}
+
+            {/* Previous Industry */}
+            {previousIndustry?.name !== startingIndustry?.name && (
+              <div className="game-info-item" id="previous-industry">
+                <div className="label"><p>Previous Industry:</p></ div>
+                <div className="value-box">
+                    <p>{previousIndustry?.name} (£{previousIndustry?.dataValue}bn)</p>
+                </div>
+              </div>
+            )}
+
             {/* Lives */}
             <div className="game-info-item">
               <div className="label"><p>Lives:</p></ div>
@@ -188,6 +227,8 @@ const GameBoard = (props) => {
               </div>
             </div>
               
+            
+
             {/* Score */}
             <div className="game-info-item">
               <div className="label"><p>Score:</p></ div>
@@ -203,30 +244,7 @@ const GameBoard = (props) => {
                 <p>{roundCounter}</p>
               </div>
             </div>
-
-            {/* Starting Industry */}
-            <div className="game-info-item" id="starting-industry">
-              <div className="label"><p>Starting Industry:</p></ div>
-              <div className="value-box">
-                <p>{startingIndustry?.name} (£{startingIndustry?.dataValue}bn)</p>
-              </div>
-            </div>
-
-            {/* Previous Industry */}
-            {previousIndustry?.name !== startingIndustry?.name && (
-              <div className="game-info-item" id="previous-industry">
-                <div className="label"><p>Previous Industry:</p></ div>
-                <div className="value-box">
-                  
-                    <p>{previousIndustry?.name} (£{previousIndustry?.dataValue}bn)</p>
-                </div>
-              </div>
-            )}
-        </div>
-        <div className='buttons'> 
-            <button id="Lower-Button" onClick={() => handleGuess('lower')} disabled={selectedCard === null}>Lower</button>
-            <button id="Higher-Button" onClick={() => handleGuess('higher')} disabled={selectedCard === null}>Higher</button>
-        </div>   
+        </div>  
       </div>
 
       {/* Cards Grid */}
@@ -238,6 +256,13 @@ const GameBoard = (props) => {
             onClick={() => handleCardSelection(index)} 
           />
         ))}
+      </div>
+
+      <div className="game-controls">
+        <div className="buttons"> 
+          <button id="Lower-Button" onClick={() => handleGuess('lower')} disabled={selectedCard === null}>Lower</button>
+          <button id="Higher-Button" onClick={() => handleGuess('higher')} disabled={selectedCard === null}>Higher</button>
+        </div>
       </div>
 
       {/* Restart Button */}

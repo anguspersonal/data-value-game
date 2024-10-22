@@ -106,13 +106,32 @@ p {
     width: 250px; /* Adjust the width as needed */
     height: auto; /* Maintains aspect ratio */
     z-index: 1; 
+    border-radius: 100%;
 }
 
-.instructions {
+.welcome {
   font-style: bold; /* Italicize the text */
   font-weight: bold; /* Bold the text */
   font-size: 1.2em; /* Adjust the font size as needed */
   line-height: normal;
-  align-content: center;
+  align-content: centre;
   margin-top: 20px; /* Add margin for better spacing */
+}
+
+.instructions {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  text-align: left;
+  font-size: 1em; /* Adjust the font size as needed */
+  line-height: 1.5; /* Adjust the line height as needed */
+  margin-top: 20px; /* Add margin for better spacing */
+}
+
+/* When screen is less that 575 px wide, make element with id planet invisible.*/
+
+@media screen and (max-width: 575px) {
+  #planet {
+    display: none;
+  }
 }
