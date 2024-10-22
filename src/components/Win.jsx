@@ -7,7 +7,7 @@ const Win = ({ score, livesRemaining, round }) => {
             <h3>You have won the game!</h3>
             <p>Your Score: {score}</p>
             <p>Lives Remaining: {livesRemaining}</p>
-            <p> Round reacched: {round}</p>
+            <p> Round reached: {round}</p>
         </div>
     );
 };
