@@ -6,7 +6,7 @@ function Welcome(props) {
         <div>
          <img id='planet' src="../anmut-planet.webp" alt="Anmut Logo" className="logo" />    
         <h1 style={{ justifyContent: 'center' }}>Welcome!</h1>
-        <div className='instructions'>
+        <div className='welcome'>
         <h3> Discover the Value of Data with Anmut</h3>
         <p>At Anmut, we believe many organisations miss the true value of their data 
             because they don’t see it as a strategic asset. Our proprietary methodology 
@@ -16,7 +16,7 @@ function Welcome(props) {
         the starting industry given. If you're right, you win a point, and move to the next 
         round. Select another industry, this time comparing to the previous industry value.
         Keep going as long as you can! Best of luck!</p>
-        <button onClick={props.startGame}>Start Game</button>
+        <button style={{maxWidth:"200px"}} onClick={props.startGame}>Start Game</button>
       </div>
         </div>
     );
