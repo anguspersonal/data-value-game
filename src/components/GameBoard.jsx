@@ -86,13 +86,13 @@ const GameBoard = (props) => {
     updateCardState(index, 'Selected');
   };
 
+  let isCorrect = false; // Boolean to track if the guess is correct
+  const selectedIndustry = cards[selectedCard]; // Get the selected industry
+
   // Function to handle the user's guess
-  const handleGuess = (selectedGuess) => {
+  const handleGuess = (selectedGuess) => {{
     if (gameStatus !== 'playing' || selectedCard === null) return;
     setGuess(selectedGuess);
-
-    const selectedIndustry = cards[selectedCard];
-    let isCorrect;
 
     if (roundCounter === 0) {
       isCorrect = selectedGuess === 'higher'
@@ -104,7 +104,7 @@ const GameBoard = (props) => {
         : selectedIndustry.dataValue < previousIndustry.dataValue;
     }
   };
-  
+
     updateCardState(selectedCard, 'Flipping');
 
     setTimeout(() => {
@@ -130,14 +130,15 @@ const GameBoard = (props) => {
     setSelectedCard(null); // Reset selected card
     
     setRoundCounter(prevRoundCounter => prevRoundCounter + 1); // Increment round counter correctly
-    
-    // UseEffect to check if game is won or rounds are completed
-    useEffect(() => {
-      if (roundCounter >= 9) {
-        setGameStatus('won');
-        console.log('Congratulations! You have won the game!');
-      }
-    }, [roundCounter]); // Add dependency array to run effect only when roundCounter changes
+  };
+
+  // UseEffect to check if game is won or rounds are completed
+  useEffect(() => {
+    if (roundCounter >= 9) {
+      setGameStatus('won');
+      console.log('Congratulations! You have won the game!');
+    }
+  }, [roundCounter]); // Add dependency array to run effect only when roundCounter changes
   
   // Card component
   const Card = ({ industry, onClick }) => (
@@ -176,14 +177,6 @@ const GameBoard = (props) => {
       </div>
     );
   }
-
-
-  /* Gameboard updates
-  1. 
-  2. Add explanatory text, move scores to rop right
-  3. Add a industry vs industry at bottom of screen.
-  4. buttons go below card-grid
-  */
 
   // Game Board
   return (

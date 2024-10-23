@@ -1,6 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 const Win = ({ score, livesRemaining, round }) => {
+
+    useEffect(() => {
+        // Scroll to top when the component renders
+        window.scrollTo(0, 0);
+      }, []);
+
+
     return (
         <div className="win-screen">
             <h1>Congratulations!</h1>
@@ -15,3 +22,4 @@ const Win = ({ score, livesRemaining, round }) => {
 
 
 export default Win;
+

@@ -1,7 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 const Lose = (props) => {
     const { score, livesRemaining, round } = props;
+
+    useEffect(() => {
+        // Scroll to top when the component renders
+        window.scrollTo(0, 0);
+      }, []);
+
+
 
     return (
         <div className="lose-screen">
