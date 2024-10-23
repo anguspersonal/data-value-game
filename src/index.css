@@ -135,3 +135,18 @@ p {
     display: none;
   }
 }
+
+
+#loseScreenTitle {
+  font-size: 2em;
+  font-weight: bold;
+  color: var(--e-global-color-c09952e);
+  margin-top: 20px;
+}
+
+#winScreenTitle {
+  font-size: 2em;
+  font-weight: bold;
+  color: green;
+  margin-top: 20px;
+}

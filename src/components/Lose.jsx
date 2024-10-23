@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import '../index.css';
 
 const Lose = (props) => {
     const { score, livesRemaining, round } = props;
@@ -12,7 +13,7 @@ const Lose = (props) => {
 
     return (
         <div className="lose-screen">
-            <h1>Game Over</h1>
+            <h1 id="loseScreenTitle">Game Over</h1>
             <p>Sorry, you lost the game. Better luck next time!</p>
             <p>Final Score: {score}</p>
             <p>Lives Remaining: {livesRemaining}</p>
