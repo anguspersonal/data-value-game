@@ -95,13 +95,13 @@ const GameBoard = (props) => {
     setGuess(selectedGuess);
 
     if (roundCounter === 0) {
-      isCorrect = selectedGuess === 'higher'
-        ? selectedIndustry.dataValue > startingIndustry.dataValue
-        : selectedIndustry.dataValue < startingIndustry.dataValue;
+      isCorrect = (selectedGuess === 'higher')
+        ? (selectedIndustry.dataValue >= startingIndustry.dataValue)
+        : (selectedIndustry.dataValue <= startingIndustry.dataValue)
     } else {
-      isCorrect = selectedGuess === 'higher'
-        ? selectedIndustry.dataValue > previousIndustry.dataValue
-        : selectedIndustry.dataValue < previousIndustry.dataValue;
+      isCorrect = (selectedGuess === 'higher')
+        ? (selectedIndustry.dataValue >= previousIndustry.dataValue)
+        : (selectedIndustry.dataValue <= previousIndustry.dataValue)
     }
   };
 
@@ -118,8 +118,10 @@ const GameBoard = (props) => {
       setLives(prevLives => {
         const newLives = prevLives - 1;
         if (newLives === 0) {
-          setGameStatus('lost'); // Set game status to lost if no lives left
-          console.error('Game Over! No lives left.');
+          setTimeout(() => {
+            setGameStatus('lost'); // Set game status to lost if no lives left
+            console.error('Game Over! No lives left.');
+          }, 3000); // 3-second delay before winning
         }
         return newLives; // Return updated lives
       });
@@ -135,8 +137,10 @@ const GameBoard = (props) => {
   // UseEffect to check if game is won or rounds are completed
   useEffect(() => {
     if (roundCounter >= 9) {
-      setGameStatus('won');
-      console.log('Congratulations! You have won the game!');
+      setTimeout(() => {
+        setGameStatus('won');
+        console.log('Congratulations! You have won the game!');
+      }, 3000); // 3-second delay before winning
     }
   }, [roundCounter]); // Add dependency array to run effect only when roundCounter changes
   
