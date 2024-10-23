@@ -111,27 +111,32 @@ const GameBoard = (props) => {
     }, 600); // Duration of the flip animation
 
     if (isCorrect) {
-      setScore(score + 1); // Increment score
-      setPreviousIndustry(selectedIndustry); // Set selected industry as previous industry
-      setGuess(null); // Reset guess
+      setScore(prevScore => prevScore + 1); // Increment score correctly using functional update
       console.log('Correct Guess! New Previous Industry:', selectedIndustry); // Add console log
-      if (roundCounter + 1 >= 9) {
-        setGameStatus('won'); // Set game status to won if score reaches 9
-        console.log('Congratulations! You have won the game!'); // Add console log
-      }
     } else {
-      setLives(lives - 1); // Decrement lives
-      setPreviousIndustry(selectedIndustry); // Set selected industry as previous industry
-      setGuess(null); // Reset guess
-      if (lives - 1 === 0) {
-        setGameStatus('lost'); // Set game status to lost if no lives left
-        console.error('Game Over! No lives left.'); // Add console error
-      }
+      setLives(prevLives => {
+        const newLives = prevLives - 1;
+        if (newLives === 0) {
+          setGameStatus('lost'); // Set game status to lost if no lives left
+          console.error('Game Over! No lives left.');
+        }
+        return newLives; // Return updated lives
+      });
     }
-
-    setRoundCounter(roundCounter + 1); // Increment round counter
+    
+    setGuess(null); // Reset guess
+    setPreviousIndustry(selectedIndustry); // Set selected industry as previous industry
     setSelectedCard(null); // Reset selected card
-  };
+    
+    setRoundCounter(prevRoundCounter => prevRoundCounter + 1); // Increment round counter correctly
+    
+    // UseEffect to check if game is won or rounds are completed
+    useEffect(() => {
+      if (roundCounter >= 9) {
+        setGameStatus('won');
+        console.log('Congratulations! You have won the game!');
+      }
+    }, [roundCounter]); // Add dependency array to run effect only when roundCounter changes
   
   // Card component
   const Card = ({ industry, onClick }) => (
