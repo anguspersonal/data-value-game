@@ -103,7 +103,8 @@ const GameBoard = (props) => {
         ? selectedIndustry.dataValue > previousIndustry.dataValue
         : selectedIndustry.dataValue < previousIndustry.dataValue;
     }
-
+  };
+  
     updateCardState(selectedCard, 'Flipping');
 
     setTimeout(() => {
